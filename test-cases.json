@@ -1,0 +1,125 @@
+[
+  {
+    "id": "D02",
+    "type": "direct",
+    "prompt": "JPA Entity 새로 만들어줘",
+    "expected": ["entity-skill"]
+  },
+  {
+    "id": "D03",
+    "type": "direct",
+    "prompt": "GraphQL 스키마 추가해줘",
+    "expected": ["graphql-skill"]
+  },
+  {
+    "id": "D04",
+    "type": "direct",
+    "prompt": "gRPC Proto 파일 정의해줘",
+    "expected": ["grpc-skill"]
+  },
+  {
+    "id": "D05",
+    "type": "direct",
+    "prompt": "Gradle 빌드 설정 수정해줘",
+    "expected": ["gradle-skill"]
+  },
+  {
+    "id": "D06",
+    "type": "direct",
+    "prompt": "JUnit 테스트 작성해줘",
+    "expected": ["test-skill"]
+  },
+  {
+    "id": "D07",
+    "type": "direct",
+    "prompt": "구현 계획 세워줘",
+    "expected": ["plan-skill"]
+  },
+
+  {
+    "id": "N01",
+    "type": "natural",
+    "prompt": "채팅에 이미지 전송 기능을 추가하려고 해",
+    "expected": ["develop"]
+  },
+  {
+    "id": "N02",
+    "type": "natural",
+    "prompt": "User 테이블에 nickname_updated_at 컬럼을 추가하고 싶어",
+    "expected": ["entity-skill"]
+  },
+  {
+    "id": "N03",
+    "type": "natural",
+    "prompt": "클라이언트에서 사용자 프로필을 수정하는 API가 필요해",
+    "expected": ["graphql-skill"]
+  },
+  {
+    "id": "N04",
+    "type": "natural",
+    "prompt": "user 서비스에서 call 서비스로 통화 기록을 전달하는 내부 통신이 필요해",
+    "expected": ["grpc-skill"]
+  },
+  {
+    "id": "N06",
+    "type": "natural",
+    "prompt": "UserService의 팔로우 기능이 정상 동작하는지 검증하고 싶어",
+    "expected": ["test-skill"]
+  },
+  {
+    "id": "N08",
+    "type": "natural",
+    "prompt": "채팅 저장소를 MySQL에서 DynamoDB로 전환하기로 한 결정을 문서화해줘",
+    "expected": ["adr-skill"]
+  },
+
+  {
+    "id": "A01",
+    "type": "ambiguous",
+    "prompt": "새 API endpoint 만들어줘",
+    "expected": ["graphql-skill", "grpc-skill", "develop"]
+  },
+  {
+    "id": "A02",
+    "type": "ambiguous",
+    "prompt": "데이터 모델 설계해줘",
+    "expected": ["entity-skill", "plan-skill"]
+  },
+  {
+    "id": "A04",
+    "type": "ambiguous",
+    "prompt": "notification 모듈에 새 기능 추가해줘",
+    "expected": ["develop", "graphql-skill", "grpc-skill"]
+  },
+  {
+    "id": "A05",
+    "type": "ambiguous",
+    "prompt": "빌드가 깨졌어 고쳐줘",
+    "expected": ["gradle-skill"]
+  },
+
+  {
+    "id": "X01",
+    "type": "negative",
+    "prompt": "이 파일 내용 설명해줘",
+    "expected": []
+  },
+  {
+    "id": "X02",
+    "type": "negative",
+    "prompt": "git log 최근 5개 보여줘",
+    "expected": []
+  },
+  {
+    "id": "X04",
+    "type": "negative",
+    "prompt": "README.md 읽어줘",
+    "expected": []
+  },
+  {
+    "id": "X06",
+    "type": "negative",
+    "prompt": "서버 상태 확인해줘",
+    "expected": []
+  }
+]
