@@ -22,7 +22,56 @@ stream-json 출력에서 `Skill` tool_use 호출을 파싱해 정답과 대조. 
 | 라운드 | 2회 반복 |
 | 총 실행 | 4 configs × 20 cases × 2 rounds = **160건** |
 
-### 1-2. 테스트 케이스 유형
+### 1-2. 스킬 호출 추적 방법
+
+Claude Code는 `--output-format stream-json`으로 실행하면 내부 동작을 JSON 스트림으로 출력합니다. 여기서 `Skill()` tool 호출 여부를 파싱합니다.
+
+```bash
+claude -p "프롬프트" --output-format stream-json --max-turns 1 --allowedTools "Skill"
+```
+
+- `--max-turns 1` — 스킬 호출 여부만 확인하면 되므로 1턴으로 제한
+- `--allowedTools "Skill"` — Skill tool만 허용하여 다른 tool 호출로 인한 노이즈 차단
+
+stream-json 출력에서 Skill 호출이 발생하면 이런 형태가 포함됩니다:
+
+```json
+{"type":"tool_use","name":"Skill","input":{"skill":"entity-skill"}}
+```
+
+이걸 grep으로 감지하고, `"skill":"..."` 값을 추출합니다:
+
+```bash
+if echo "$output" | grep -q '"name":"Skill"'; then
+  activated_skill=$(echo "$output" \
+    | grep -o '"skill":"[^"]*"' \
+    | sed 's/"skill":"//;s/"//' \
+    | sort -u \
+    | paste -sd '|' -)
+fi
+```
+
+forced-eval처럼 여러 스킬을 동시에 호출하는 경우 `develop|entity-skill|graphql-skill` 형태로 파이프 구분자로 이어붙입니다.
+
+각 테스트 케이스에는 정답 스킬 목록이 미리 정의되어 있습니다:
+
+```json
+{"id": "N02", "prompt": "User 테이블에 컬럼을 추가하고 싶어", "expected": ["entity-skill"]}
+{"id": "X01", "prompt": "이 파일 내용 설명해줘", "expected": []}
+```
+
+호출된 스킬과 정답을 대조하여 4가지로 분류합니다:
+
+| 판정 | 조건 | 예시 |
+|------|------|------|
+| **correct** | 호출된 스킬 중 정답이 하나라도 포함 | expected: `entity-skill` → 호출: `entity-skill` |
+| **missed** | 스킬이 필요한데 미호출 | expected: `entity-skill` → 호출: 없음 |
+| **wrong_skill** | 스킬을 호출했으나 정답과 불일치 | expected: `entity-skill` → 호출: `graphql-skill` |
+| **false_positive** | 스킬이 불필요한데 호출 | expected: 없음 → 호출: `develop` |
+
+다중 스킬 호출 시에도 정답 목록에 **하나라도 포함**되면 correct로 판정합니다. 예를 들어 forced-eval이 N01에서 6개 스킬을 동시 호출해도, 그 중 `develop`이 정답에 포함되어 있으므로 correct입니다.
+
+### 1-3. 테스트 케이스 유형
 
 | 유형 | 개수 | 설명 | 예시 |
 |------|------|------|------|
@@ -31,13 +80,15 @@ stream-json 출력에서 `Skill` tool_use 호출을 파싱해 정답과 대조. 
 | ambiguous | 4 | 여러 스킬에 걸칠 수 있는 모호한 요청 | "새 API endpoint 만들어줘" |
 | negative | 4 | 스킬이 필요 없는 일반 요청 | "git log 최근 5개 보여줘" |
 
-### 1-3. 훅 구성 (4종)
+---
 
-#### none (baseline)
+## 2. 훅 구성 (4종)
+
+### 2-1. none (baseline)
 
 훅 없음. Claude가 스킬 목록만 보고 자발적으로 호출하는지 측정.
 
-#### simple
+### 2-2. simple
 
 단순 지시문 한 줄을 `UserPromptSubmit` 훅으로 주입:
 
@@ -47,7 +98,7 @@ use Skill(skill-name) to activate it before proceeding.
 Check .claude/skills/ for relevant skills.
 ```
 
-#### forced-eval (정적 훅)
+### 2-3. forced-eval (정적 훅)
 
 3-step commitment mechanism. 훅이 "평가 → 호출 → 구현" 순서를 강제하는 지시문을 주입하면, Claude가 스스로 평가를 글로 쓴 뒤 그 결과에 따라 행동:
 
@@ -81,7 +132,7 @@ sequenceDiagram
 
 > 출처: [Prompting best practices — Claude API Docs](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/chain-of-thought)
 
-#### llm-eval (동적 훅)
+### 2-4. llm-eval (동적 훅)
 
 사용자가 프롬프트를 입력하면 `UserPromptSubmit` 훅이 자동 실행되어, 별도의 LLM(Haiku 4.5)이 스킬 매칭을 판단한 뒤 결과를 Claude Code에 주입하는 방식:
 
@@ -130,9 +181,9 @@ Format: ["skill-name"] or []
 
 ---
 
-## 2. 프론트메터 (Description) 최적화
+## 3. 프론트메터 (Description) 최적화
 
-### 2-1. v1 → v2 변천
+### 3-1. v1 → v2 변천
 
 | 스킬 | v1 (제목형) | v2 (트리거 키워드형, 현재) |
 |------|-----------|------------------------|
@@ -146,7 +197,7 @@ Format: ["skill-name"] or []
 | adr-skill | Architecture Decision Record 작성 가이드 | ADR 작성 — 아키텍처 결정 기록, 기술 전환/선택 문서화, 의사결정 히스토리 관리 시 사용 |
 | skill-creator | 새로운 스킬을 생성하는 메타스킬 | 스킬 생성 — 반복 패턴 자동화, 새로운 커스텀 스킬 만들기, 워크플로우 템플릿화 시 사용 |
 
-### 2-2. 변경 효과 (v1 vs v2 실측)
+### 3-2. 변경 효과 (v1 vs v2 실측)
 
 v1과 v2를 동일 조건(OMC 격리, 20케이스, 2라운드)으로 측정한 결과:
 
@@ -165,7 +216,7 @@ description을 "~가이드" 제목형에서 "~시 사용" 트리거 키워드형
 - v1 ambiguous: none 기준 0/4 정답 → v2: 2/4 정답
 - direct/negative는 v1에서도 안정적 (제목만으로도 직접 매칭 가능)
 
-### 2-3. 작성 원칙 (실험에서 도출)
+### 3-3. 작성 원칙 (실험에서 도출)
 
 1. **"한 줄 요약 — 트리거 키워드 나열" 패턴**: `"JPA Entity 작성 — 테이블/컬럼 추가, DB 스키마 변경, 새 도메인 모델 생성 시 사용"`
 2. **동사 포함**: "추가", "수정", "작성", "생성" 등 사용자가 실제 쓰는 동사
@@ -175,9 +226,9 @@ description을 "~가이드" 제목형에서 "~시 사용" 트리거 키워드형
 
 ---
 
-## 3. 최종 결과 (v2 기준)
+## 4. 최종 결과 (v2 기준)
 
-### 3-1. 전체 결과
+### 4-1. 전체 결과
 
 | Config | R1 | R2 | 평균 | 비고 |
 |--------|-----|-----|------|------|
@@ -186,7 +237,7 @@ description을 "~가이드" 제목형에서 "~시 사용" 트리거 키워드형
 | **forced-eval** | **100%** | **100%** | **100%** | 3-step commitment mechanism |
 | llm-eval (4.5) | 95% | 90% | **92%** | Haiku 4.5 사전 평가 |
 
-### 3-2. Forced eval vs LLM eval 비교
+### 4-2. Forced eval vs LLM eval 비교
 
 | 항목 | Forced eval | LLM eval (Haiku 4.5) |
 |------|-------------|----------------------|
@@ -199,9 +250,9 @@ description을 "~가이드" 제목형에서 "~시 사용" 트리거 키워드형
 
 ---
 
-## 4. 개선 과제
+## 5. 개선 과제
 
-### 4-1. 약점 케이스 — 프론트메터 보강이 필요한 곳
+### 5-1. 약점 케이스 — 프론트메터 보강이 필요한 곳
 
 | 케이스 | 문제 | 보강 방향 |
 |--------|------|----------|
