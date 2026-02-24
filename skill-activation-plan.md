@@ -71,6 +71,24 @@ forced-eval처럼 여러 스킬을 동시에 호출하는 경우 `develop|entity
 
 다중 스킬 호출 시에도 정답 목록에 **하나라도 포함**되면 correct로 판정합니다. 예를 들어 forced-eval이 N01에서 6개 스킬을 동시 호출해도, 그 중 `develop`이 정답에 포함되어 있으므로 correct입니다.
 
+단건으로 스킬 호출 여부를 확인하고 싶다면:
+
+```bash
+env -u CLAUDECODE claude -p "<입력 프롬프트>" \
+  --output-format stream-json \
+  --verbose \
+  --max-turns 5 \
+  --allowedTools "Skill" \
+  --model sonnet 2>/dev/null \
+  | grep -o '"skill":"[^"]*"' \
+  | sed 's/"skill":"//;s/"//' \
+  | sort -u
+
+# 예시
+env -u CLAUDECODE claude -p "JPA Entity 새로 만들어줘" ...
+# 출력: entity-skill
+```
+
 ### 1-3. 테스트 케이스 유형
 
 | 유형 | 개수 | 설명 | 예시 |
