@@ -1,0 +1,3 @@
+이 작업은 grpc-skill과 관련됩니다. 프로젝트의 .claude/skills/grpc-skill/SKILL.md를 참고하세요.
+
+user 서비스에서 call 서비스로 통화 기록을 전달하는 내부 통신이 필요해

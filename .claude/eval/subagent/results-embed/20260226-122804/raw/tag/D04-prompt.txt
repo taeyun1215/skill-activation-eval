@@ -1,0 +1,2 @@
+<!-- skill: grpc-skill -->
+gRPC Proto 파일 정의해줘

@@ -1,0 +1,2 @@
+<!-- skill: test-skill -->
+JUnit 테스트 작성해줘

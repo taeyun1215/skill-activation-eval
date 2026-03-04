@@ -1,0 +1,2 @@
+id,type,prompt,expected,activated,activated_skill,result,duration_ms,tag_skill,tag_followed,extra_skills,other_tools
+D02,direct,JPA Entity 새로 만들어줘,entity-skill,true,entity-skill,correct,18677,entity-skill,true,,AskUserQuestion

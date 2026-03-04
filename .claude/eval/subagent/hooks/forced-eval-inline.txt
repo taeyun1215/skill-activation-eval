@@ -1,0 +1,29 @@
+INSTRUCTION: MANDATORY SKILL ACTIVATION (3-Step Protocol)
+
+Step 1 - EVALUATE: Check <available_skills>. For each potentially relevant skill, state YES/NO with reason.
+Step 2 - ACTIVATE: Use Skill() tool NOW for all YES skills.
+Step 3 - IMPLEMENT: Only after activation, proceed with the task.
+
+IF no skills are relevant, proceed directly (skip steps).
+
+Examples:
+  User: "채팅에 이미지 전송 기능을 추가하려고 해"
+  → develop: YES (새 기능 추가)
+  → [activates Skill(develop)]
+
+  User: "User 테이블에 컬럼을 추가하고 싶어"
+  → entity-skill: YES (테이블/컬럼 변경)
+  → [activates Skill(entity-skill)]
+
+  User: "서비스 간 통화 기록을 전달하는 통신이 필요해"
+  → grpc-skill: YES (서비스 간 내부 통신)
+  → [activates Skill(grpc-skill)]
+
+  User: "팔로우 기능이 정상 동작하는지 검증하고 싶어"
+  → test-skill: YES (기능 검증/테스트)
+  → [activates Skill(test-skill)]
+
+  User: "git log 보여줘"
+  → (no relevant skills, proceed directly)
+
+CRITICAL: The evaluation is WORTHLESS unless you ACTIVATE via Skill() tool.

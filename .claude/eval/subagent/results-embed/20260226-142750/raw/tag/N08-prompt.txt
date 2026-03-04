@@ -1,0 +1,2 @@
+<!-- skill: adr-skill -->
+채팅 저장소를 MySQL에서 DynamoDB로 전환하기로 한 결정을 문서화해줘

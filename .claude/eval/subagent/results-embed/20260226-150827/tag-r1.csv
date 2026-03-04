@@ -1,0 +1,2 @@
+id,type,prompt,expected_skill,config,skill_loaded,loaded_skills
+X01,negative,이 파일 내용 설명해줘,,tag,,

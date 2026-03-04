@@ -1,0 +1,2 @@
+<!-- skill: entity-skill -->
+User 테이블에 nickname_updated_at 컬럼을 추가하고 싶어

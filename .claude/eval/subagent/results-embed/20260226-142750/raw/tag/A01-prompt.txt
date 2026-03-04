@@ -1,0 +1,2 @@
+<!-- skill: graphql-skill -->
+새 API endpoint 만들어줘

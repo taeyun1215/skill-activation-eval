@@ -1,0 +1,3 @@
+이 작업은 grpc-skill과 관련됩니다. 프로젝트의 .claude/skills/grpc-skill/SKILL.md를 참고하세요.
+
+gRPC Proto 파일 정의해줘

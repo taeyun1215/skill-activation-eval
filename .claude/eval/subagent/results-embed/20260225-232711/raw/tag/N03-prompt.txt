@@ -1,0 +1,2 @@
+<!-- skill: graphql-skill -->
+클라이언트에서 사용자 프로필을 수정하는 API가 필요해

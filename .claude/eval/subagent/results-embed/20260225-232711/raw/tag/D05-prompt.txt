@@ -1,0 +1,2 @@
+<!-- skill: gradle-skill -->
+Gradle 빌드 설정 수정해줘

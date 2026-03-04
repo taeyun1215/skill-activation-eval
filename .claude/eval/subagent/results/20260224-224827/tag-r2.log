@@ -1,0 +1,6 @@
+[tag R2] D02 [direct] correct -> entity-skill (tag:entity-skill followed:true) (19760ms)
+[tag R2] D03 [direct] missed -> (none) (tag:graphql-skill followed:false) (45524ms)
+[tag R2] D04 [direct] missed -> (none) (tag:grpc-skill followed:false) (45484ms)
+[tag R2] D05 [direct] correct -> gradle-skill (tag:gradle-skill followed:true) (17068ms)
+[tag R2] D06 [direct] correct -> test-skill (tag:test-skill followed:true) (15091ms)
+[tag R2] D07 [direct] correct -> plan-skill (tag:plan-skill followed:true) (18210ms)

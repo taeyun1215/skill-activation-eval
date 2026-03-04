@@ -1,0 +1,2 @@
+<!-- skill: test-skill -->
+UserService의 팔로우 기능이 정상 동작하는지 검증하고 싶어

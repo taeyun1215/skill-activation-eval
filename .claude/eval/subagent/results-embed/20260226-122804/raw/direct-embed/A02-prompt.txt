@@ -1,0 +1,81 @@
+<skill-guide>
+---
+name: entity-skill
+description: "JPA Entity + Repository 작성 가이드"
+---
+
+# Entity Skill
+
+## 설명
+
+새로운 JPA Entity와 Repository를 프로젝트 컨벤션에 맞게 작성한다.
+
+## 실행 절차
+
+### 1. Entity 작성
+
+위치: `domain/src/main/kotlin/com/maum/backend/entity/{도메인}/`
+
+```kotlin
+@Entity
+@Table(catalog = "{catalog}", name = "{table_name}")
+class EntityName(
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    val id: String = "",
+
+    // 비즈니스 필드
+    val userId: String,
+    val name: String,
+
+    // 관계 매핑 (필요시)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "code")
+    val category: CategoryEntity? = null,
+
+    // 감사 필드
+    @CreatedDate
+    @Column(columnDefinition = "datetime(3)", nullable = false, updatable = false)
+    var createdAt: LocalDateTime = LocalDateTime.now(),
+
+    @LastModifiedDate
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
+)
+```
+
+### 2. Repository 작성
+
+위치: `domain/src/main/kotlin/com/maum/backend/repository/{도메인}/`
+
+```kotlin
+interface EntityNameRepository : JpaRepository<EntityName, String> {
+    fun findByUserId(userId: String): List<EntityName>
+    fun findByUserIdAndStatus(userId: String, status: Int): List<EntityName>
+}
+```
+
+### 3. Catalog 선택
+
+| Catalog | 도메인 |
+|---------|--------|
+| `maum` | user, profile, call, product, follow |
+| `moment` | post, moment, comment, like |
+| `chat` | chat_room |
+| `notification` | notification, notification_setting |
+
+### 4. 컴파일 확인
+
+```bash
+./gradlew :domain:compileKotlin
+```
+
+## 주의사항
+
+- Entity는 `var` 최소화, 변경 필요한 필드만 `var`
+- `@Table`의 `catalog`는 실제 DB 카탈로그명과 일치
+- `@JoinColumn`의 `referencedColumnName`을 명시적으로 지정 (기본값 `id`가 아닌 경우)
+- 양방향 관계보다 단방향 관계 우선
+</skill-guide>
+
+데이터 모델 설계해줘

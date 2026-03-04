@@ -1,0 +1,86 @@
+---
+name: adr-skill
+description: "Architecture Decision Record 작성 가이드"
+---
+
+# ADR Skill
+
+## 설명
+
+중요한 아키텍처 결정을 ADR(Architecture Decision Record)로 기록한다.
+
+## 실행 절차
+
+### 1. 번호 확인
+
+```bash
+ls docs/adr/
+# 마지막 번호 확인 후 +1
+```
+
+### 2. ADR 파일 생성
+
+위치: `docs/adr/NNNN-short-title.md`
+
+```markdown
+# NNNN. 제목
+
+## Status
+
+Proposed | Accepted | Deprecated | Superseded by [NNNN]
+
+## Context
+
+어떤 문제 상황이 있는가?
+- 현재 상태
+- 제약 사항
+- 요구사항
+
+## Considered Options
+
+### Option 1: [이름]
+- 장점: ...
+- 단점: ...
+
+### Option 2: [이름]
+- 장점: ...
+- 단점: ...
+
+## Decision
+
+어떤 결정을 내렸는가? 왜?
+
+## Consequences
+
+### 긍정적
+- ...
+
+### 부정적
+- ...
+
+### 중립적
+- ...
+```
+
+### 3. 상태 관리
+
+| Status | 의미 |
+|--------|------|
+| Proposed | 제안됨, 검토 필요 |
+| Accepted | 승인됨, 적용 중 |
+| Deprecated | 더 이상 유효하지 않음 |
+| Superseded by [N] | 새 ADR로 대체됨 |
+
+## ADR을 작성해야 하는 경우
+
+- 새로운 기술/프레임워크 도입
+- 모듈 간 통신 방식 변경
+- DB 스키마의 주요 변경
+- 인증/인가 방식 변경
+- 외부 서비스 연동 방식 결정
+
+## 팁
+
+- ADR은 짧고 명확하게
+- "왜" 이 결정을 내렸는지가 가장 중요
+- 대안을 반드시 기록 (나중에 재검토 시 유용)

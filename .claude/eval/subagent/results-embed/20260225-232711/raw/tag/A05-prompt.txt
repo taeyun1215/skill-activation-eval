@@ -1,0 +1,2 @@
+<!-- skill: gradle-skill -->
+빌드가 깨졌어 고쳐줘

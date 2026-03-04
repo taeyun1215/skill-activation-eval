@@ -1,0 +1,21 @@
+id,type,prompt,expected_skill,config,skill_loaded
+D02,direct,JPA Entity 새로 만들어줘,entity-skill,light-embed,false
+D03,direct,GraphQL 스키마 추가해줘,graphql-skill,light-embed,true
+D04,direct,gRPC Proto 파일 정의해줘,grpc-skill,light-embed,true
+D05,direct,Gradle 빌드 설정 수정해줘,gradle-skill,light-embed,true
+D06,direct,JUnit 테스트 작성해줘,test-skill,light-embed,true
+D07,direct,구현 계획 세워줘,plan-skill,light-embed,true
+N01,natural,채팅에 이미지 전송 기능을 추가하려고 해,develop,light-embed,true
+N02,natural,User 테이블에 nickname_updated_at 컬럼을 추가하고 싶어,entity-skill,light-embed,true
+N03,natural,클라이언트에서 사용자 프로필을 수정하는 API가 필요해,graphql-skill,light-embed,true
+N04,natural,user 서비스에서 call 서비스로 통화 기록을 전달하는 내부 통신이 필요해,grpc-skill,light-embed,false
+N06,natural,UserService의 팔로우 기능이 정상 동작하는지 검증하고 싶어,test-skill,light-embed,true
+N08,natural,채팅 저장소를 MySQL에서 DynamoDB로 전환하기로 한 결정을 문서화해줘,adr-skill,light-embed,true
+A01,ambiguous,새 API endpoint 만들어줘,graphql-skill,light-embed,true
+A02,ambiguous,데이터 모델 설계해줘,entity-skill,light-embed,true
+A04,ambiguous,notification 모듈에 새 기능 추가해줘,develop,light-embed,false
+A05,ambiguous,빌드가 깨졌어 고쳐줘,gradle-skill,light-embed,true
+X01,negative,이 파일 내용 설명해줘,,light-embed,
+X02,negative,git log 최근 5개 보여줘,,light-embed,
+X04,negative,README.md 읽어줘,,light-embed,
+X06,negative,서버 상태 확인해줘,,light-embed,

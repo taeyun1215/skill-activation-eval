@@ -1,0 +1,71 @@
+<skill-guide>
+---
+name: plan-skill
+description: "태스크 및 구현 계획 작성 가이드"
+---
+
+# Plan Skill
+
+## 설명
+
+새로운 기능이나 변경 사항에 대한 구현 계획을 구조화된 형식으로 작성한다.
+
+## 실행 절차
+
+### 1. 태스크 파일 생성
+
+위치: `.claude/tasks/YYYYMMDD-task-name.md`
+
+```markdown
+# Task: [태스크 제목]
+
+## Context
+왜 이 작업이 필요한가?
+
+## Goal
+무엇을 달성해야 하는가?
+
+## Plan
+
+### Phase 1: [단계명]
+- [ ] 작업 1
+- [ ] 작업 2
+
+### Phase 2: [단계명]
+- [ ] 작업 3
+- [ ] 작업 4
+
+## Affected Modules
+- `module1/` — 변경 이유
+- `module2/` — 변경 이유
+
+## Verification
+- [ ] `./gradlew :module:compileKotlin` 성공
+- [ ] `./gradlew :module:test` 통과
+- [ ] 기존 기능 회귀 없음
+
+## Notes
+추가 참고사항
+```
+
+### 2. 계획 수립 원칙
+
+1. **영향 범위 파악**: 어떤 모듈이 변경되는가?
+2. **의존성 순서**: Proto → Domain → Service → Controller 순서
+3. **검증 가능성**: 각 단계마다 확인 방법 명시
+4. **분리 커밋**: 구조 변경과 행동 변경을 별도 단계로
+
+### 3. 계획 검토
+
+- 빠진 모듈이 없는지 확인
+- gRPC 인터페이스 변경이 하위 호환되는지 확인
+- DB 스키마 변경이 필요한지 확인
+
+## 팁
+
+- 복잡한 작업은 여러 PR로 분리
+- 각 PR은 독립적으로 배포 가능해야 함
+- `.claude/plan.md`의 로드맵과 연결
+</skill-guide>
+
+구현 계획 세워줘

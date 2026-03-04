@@ -1,0 +1,34 @@
+{
+  "enabledPlugins": {
+    "oh-my-claudecode@omc": true
+  },
+  "deny": [
+    "Read(.env*)",
+    "Read(**/*.pem)",
+    "Read(**/credentials/**)",
+    "Read(**/firebase-admin-credentials.json)",
+    "Read(.git/config)",
+    "Edit(.env*)",
+    "Edit(**/*.pem)",
+    "Edit(**/credentials/**)",
+    "Edit(**/firebase-admin-credentials.json)",
+    "Edit(.git/config)",
+    "Write(.env*)",
+    "Write(**/*.pem)",
+    "Write(**/credentials/**)",
+    "Write(**/firebase-admin-credentials.json)",
+    "Write(.git/config)"
+  ],
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/forced-eval.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

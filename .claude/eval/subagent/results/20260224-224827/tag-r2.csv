@@ -1,0 +1,7 @@
+id,type,prompt,expected,activated,activated_skill,result,duration_ms,tag_skill,tag_followed,extra_skills
+D02,direct,JPA Entity 새로 만들어줘,entity-skill,true,entity-skill,correct,19760,entity-skill,true,
+D03,direct,GraphQL 스키마 추가해줘,graphql-skill,false,,missed,45524,graphql-skill,false,
+D04,direct,gRPC Proto 파일 정의해줘,grpc-skill,false,,missed,45484,grpc-skill,false,
+D05,direct,Gradle 빌드 설정 수정해줘,gradle-skill,true,gradle-skill,correct,17068,gradle-skill,true,
+D06,direct,JUnit 테스트 작성해줘,test-skill,true,test-skill,correct,15091,test-skill,true,
+D07,direct,구현 계획 세워줘,plan-skill,true,plan-skill,correct,18210,plan-skill,true,

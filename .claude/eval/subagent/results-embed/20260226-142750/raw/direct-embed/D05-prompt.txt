@@ -1,0 +1,97 @@
+<skill-guide>
+---
+name: gradle-skill
+description: "멀티모듈 Gradle 빌드 관리 가이드"
+---
+
+# Gradle Skill
+
+## 설명
+
+Kotlin DSL 기반 멀티모듈 Gradle 프로젝트의 빌드 설정을 관리한다.
+
+## 실행 절차
+
+### 1. 의존성 추가
+
+`build.gradle.kts` (모듈별):
+
+```kotlin
+dependencies {
+    implementation(project(":domain"))
+    implementation(project(":protobuf"))
+
+    // Spring Boot
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // gRPC
+    implementation("net.devh:grpc-spring-boot-starter")
+
+    // Test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin")
+}
+```
+
+### 2. 모듈 간 의존성
+
+```
+# settings.gradle.kts
+include("graphql", "user", "call", "chat", "feed",
+        "notification", "product", "tracking", "adreward",
+        "scheduler", "grouptalk", "domain", "protobuf")
+```
+
+| 모듈 | 의존 대상 |
+|------|----------|
+| graphql | domain, protobuf |
+| user, call, chat, ... | domain, protobuf |
+| domain | (독립) |
+| protobuf | (독립) |
+
+### 3. 자주 쓰는 명령어
+
+```bash
+# 전체 빌드
+./gradlew clean build -x test
+
+# 특정 모듈
+./gradlew :user:build -x test
+
+# 컴파일만
+./gradlew :user:compileKotlin
+
+# 의존성 트리
+./gradlew :user:dependencies
+
+# Proto 재생성
+./gradlew :protobuf:clean :protobuf:build
+```
+
+### 4. 버전 관리
+
+`gradle.properties`:
+```properties
+applicationVersion=0.9.44
+kotlinVersion=1.8.22
+springBootVersion=3.1.4
+```
+
+### 5. 새 모듈 추가 절차
+
+1. `settings.gradle.kts`에 `include("new-module")` 추가
+2. `new-module/build.gradle.kts` 생성
+3. 필요한 의존성 추가 (domain, protobuf)
+4. `src/main/kotlin/com/maum/backend/` 패키지 구조 생성
+5. `application.yml` 환경별 생성 (local, stg, prod)
+6. `./gradlew :new-module:build` 확인
+
+## 주의사항
+
+- `protobuf` 모듈 변경 시 반드시 `./gradlew :protobuf:build` 먼저 실행
+- 버전은 `gradle.properties`에서 중앙 관리
+- 불필요한 의존성 추가 지양 (모듈 간 결합도 최소화)
+</skill-guide>
+
+Gradle 빌드 설정 수정해줘

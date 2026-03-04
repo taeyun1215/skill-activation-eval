@@ -1,0 +1,3 @@
+이 작업은 test-skill과 관련됩니다. 프로젝트의 .claude/skills/test-skill/SKILL.md를 참고하세요.
+
+JUnit 테스트 작성해줘

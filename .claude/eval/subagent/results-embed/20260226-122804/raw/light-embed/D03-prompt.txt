@@ -1,0 +1,3 @@
+이 작업은 graphql-skill과 관련됩니다. 프로젝트의 .claude/skills/graphql-skill/SKILL.md를 참고하세요.
+
+GraphQL 스키마 추가해줘

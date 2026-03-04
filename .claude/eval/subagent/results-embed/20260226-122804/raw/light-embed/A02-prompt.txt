@@ -1,0 +1,3 @@
+이 작업은 entity-skill과 관련됩니다. 프로젝트의 .claude/skills/entity-skill/SKILL.md를 참고하세요.
+
+데이터 모델 설계해줘
