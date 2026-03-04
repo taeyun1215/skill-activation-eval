@@ -1,48 +1,53 @@
 # skill-activation-eval
 
-Claude Code 스킬 활성화 훅 4종(none, simple, forced-eval, llm-eval)을 160건 실험으로 비교한 프로젝트.
+Claude Code 스킬 시스템의 활성화/전달 전략을 실험으로 검증하는 프로젝트.
 
-## 결과 요약
+## 실험 목록
 
-| Hook | Accuracy | 특징 |
-|------|----------|------|
-| none | 75% | 훅 없이 description만으로 |
-| simple | 85% | 단순 지시문 |
-| **forced-eval** | **100%** | 3-step commitment mechanism |
-| llm-eval | 92% | Haiku 4.5 동적 사전 평가 |
-
-> Description(프론트메터)을 "~가이드" 제목형에서 "~시 사용" 트리거 키워드형으로 바꾼 것만으로 +23~28pp 상승.
-
-## 구조
-
-```
-├── skill-activation-plan.md    # 실험 설계 + 결과 + 분석
-├── run.sh                      # 자동화 실행 스크립트
-├── test-cases.json             # 테스트 케이스 20개
-├── hooks/
-│   ├── forced-eval.sh          # 정적 3-step 훅
-│   ├── llm-eval.sh             # 동적 LLM 훅 (Haiku 4.5)
-│   └── simple.sh               # 단순 지시문 훅
-└── results/
-    ├── v1/                     # 제목형 description 결과
-    └── v2/                     # 트리거 키워드형 description 결과
-```
-
-## 실행
-
-```bash
-# 전체 (4 configs, 2 rounds)
-env -u CLAUDECODE bash run.sh --no-omc --rounds 2
-
-# 특정 config만
-env -u CLAUDECODE bash run.sh --no-omc --rounds 2 --config forced-eval
-
-# 특정 케이스 디버깅
-env -u CLAUDECODE bash run.sh --no-omc --rounds 1 --id A05 --sequential
-```
+| # | 디렉토리 | 질문 | 최종 정확도 |
+|---|---------|------|-----------|
+| 01 | `01-hook-activation` | 어떤 훅이 메인 세션에서 스킬을 가장 잘 활성화하는가? | **forced-eval 100%** |
+| 02 | `02-subagent-selection` | 어떤 설정이 올바른 서브에이전트 선택을 유도하는가? | **87%** (v5) |
+| 03 | `03-skill-delivery` | 서브에이전트에 스킬을 어떻게 전달해야 하는가? | **direct-embed 100%** |
+| 04 | `04-agent-delivery` | (계획 중) | — |
 
 ## 핵심 발견
 
-1. **프론트메터가 1차 변수** — description 품질이 훅보다 중요 (v1 52% → v2 75%, 훅 없이)
-2. **forced-eval 100%** — Anthropic 공식 문서의 commitment mechanism, 순차적 단계 지시 원칙에 기반
-3. **llm-eval 92%** — 동적 스캔으로 스킬 추가/삭제에 유연하나 description 품질에 크게 의존
+```
+01 메인 세션 스킬 호출     → forced-eval 훅으로 100% 활성화
+02 서브에이전트 선택       → description 교차참조 + 훅 강제 평가로 87%
+03 서브에이전트 스킬 전달   → <skill-guide>{SKILL.md}</skill-guide> 프롬프트 포함으로 100%
+```
+
+### 02 실험 정확도 추이
+
+| 버전 | 핵심 변경 | 정확도 |
+|------|----------|--------|
+| v1 | 위임 지시 강도 | 50% |
+| v2 | CLAUDE.md에 에이전트 설명 추가 | 62% |
+| v3 | 에이전트 .md description 교차참조 | 72% |
+| v4 | UserPromptSubmit 훅으로 강제 평가 | 82% |
+| v5 | Step 0 요청 분류 추가 | **87%** |
+
+## 채택된 전략
+
+```
+메인 세션:     forced-eval 훅 → Skill() 호출 → 100% 활성화
+에이전트 선택:  description 교차참조 + Step 0 분류 + 강제 평가 훅 → 87%
+스킬 전달:     <skill-guide>{SKILL.md}</skill-guide> 프롬프트 포함 → 100%
+```
+
+## 프로젝트 구조
+
+```
+skill-activation-eval/
+├── PLAN.md                    ← 전체 실험 계획 및 내러티브
+├── 01-hook-activation/        ← 메인 세션 스킬 활성화
+├── 02-subagent-selection/     ← 서브에이전트 선택 (v1~v5)
+│   ├── PLAN.md                ← 02 상세 실험 설계
+│   ├── hooks/                 ← 훅 스크립트
+│   ├── runv{1,2,4,5}.sh       ← 실행 스크립트
+│   └── results/v{1~5}-final/  ← 결과 + summary.md
+├── 03-skill-delivery/         ← 스킬 전달 방식
+└── 04-agent-delivery/         ← (계획 중)
+```
