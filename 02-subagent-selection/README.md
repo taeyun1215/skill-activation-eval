@@ -71,11 +71,11 @@ bash runv5.sh --rounds 2                          # 전체
 ├── runv4.sh               ← v4 실행 (hook 전략 비교)
 ├── runv5.sh               ← v5 실행 (Step 0 요청 분류)
 └── results/
-    ├── v1-final/          ← 16건 × 4 configs × 1R + summary.md
-    ├── v2-final/          ← 16건 × 4 configs × 1R + summary.md
-    ├── v3-final/          ← 16건 × 4 configs × 1R + summary.md
-    ├── v4-final/          ← 20건 × 4 configs × 2R + summary.md
-    └── v5-final/          ← 20건 × 1 config × 2R + summary.md
+    ├── v1/                ← 16건 × 4 configs × 1R + summary.md
+    ├── v2/                ← 16건 × 4 configs × 1R + summary.md
+    ├── v3/                ← 16건 × 4 configs × 2R + summary.md
+    ├── v4/                ← 20건 × 4 configs × 2R + summary.md
+    └── v5/                ← 20건 × 1 config × 2R + summary.md
 ```
 
 ## 핵심 결론
