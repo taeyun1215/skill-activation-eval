@@ -1,0 +1,186 @@
+[
+  {
+    "id": "D01",
+    "type": "direct",
+    "prompt": "프로필 수정 API 인터페이스를 설계해줘",
+    "expected_agents": [
+      "api-designer"
+    ],
+    "expected_skill": "graphql-skill"
+  },
+  {
+    "id": "D02",
+    "type": "direct",
+    "prompt": "UserService 코드 구조를 분석해줘",
+    "expected_agents": [
+      "code-analyzer"
+    ],
+    "expected_skill": "develop"
+  },
+  {
+    "id": "D03",
+    "type": "direct",
+    "prompt": "팔로우 목록 조회 쿼리를 최적화해줘",
+    "expected_agents": [
+      "db-query-helper"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "D04",
+    "type": "direct",
+    "prompt": "UserService 팔로우 기능 단위 테스트를 작성해줘",
+    "expected_agents": [
+      "test-writer"
+    ],
+    "expected_skill": "test-skill"
+  },
+  {
+    "id": "D05",
+    "type": "direct",
+    "prompt": "통화 매칭 로직의 응답 시간을 개선해줘",
+    "expected_agents": [
+      "performance-optimizer"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "D06",
+    "type": "direct",
+    "prompt": "채팅 모듈 DynamoDB 마이그레이션 계획을 세워줘",
+    "expected_agents": [
+      "migration-planner"
+    ],
+    "expected_skill": "adr-skill"
+  },
+  {
+    "id": "N01",
+    "type": "natural",
+    "prompt": "클라이언트에서 사용자 프로필을 수정하는 API의 입출력을 정의해야 해",
+    "expected_agents": [
+      "api-designer"
+    ],
+    "expected_skill": "graphql-skill"
+  },
+  {
+    "id": "N02",
+    "type": "natural",
+    "prompt": "CallService의 의존성이 복잡한데 정리가 필요해",
+    "expected_agents": [
+      "code-analyzer"
+    ],
+    "expected_skill": "develop"
+  },
+  {
+    "id": "N03",
+    "type": "natural",
+    "prompt": "UserRepository의 findByNickname 쿼리가 너무 느려",
+    "expected_agents": [
+      "db-query-helper"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "N04",
+    "type": "natural",
+    "prompt": "통화 매칭 로직의 엣지 케이스가 걱정돼",
+    "expected_agents": [
+      "test-writer"
+    ],
+    "expected_skill": "test-skill"
+  },
+  {
+    "id": "N05",
+    "type": "natural",
+    "prompt": "팔로우 목록 조회 시 응답이 3초가 걸려",
+    "expected_agents": [
+      "performance-optimizer"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "N06",
+    "type": "natural",
+    "prompt": "푸시 알림 시스템을 FCM에서 자체 구현으로 전환하려고 해",
+    "expected_agents": [
+      "migration-planner"
+    ],
+    "expected_skill": "adr-skill"
+  },
+  {
+    "id": "A01",
+    "type": "ambiguous",
+    "prompt": "새 API endpoint 만들어줘",
+    "expected_agents": [
+      "api-designer",
+      "code-analyzer"
+    ],
+    "expected_skill": "graphql-skill"
+  },
+  {
+    "id": "A02",
+    "type": "ambiguous",
+    "prompt": "데이터 모델 설계해줘",
+    "expected_agents": [
+      "db-query-helper",
+      "api-designer"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "A03",
+    "type": "ambiguous",
+    "prompt": "notification 모듈에 새 기능 추가해줘",
+    "expected_agents": [
+      "code-analyzer",
+      "api-designer"
+    ],
+    "expected_skill": "develop"
+  },
+  {
+    "id": "A04",
+    "type": "ambiguous",
+    "prompt": "채팅 모듈을 DynamoDB로 전환해줘",
+    "expected_agents": [
+      "migration-planner",
+      "performance-optimizer"
+    ],
+    "expected_skill": "adr-skill"
+  },
+  {
+    "id": "D07",
+    "type": "direct",
+    "prompt": "UserRepository에 새 쿼리 메서드를 추가해줘",
+    "expected_agents": [
+      "db-query-helper"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "N07",
+    "type": "natural",
+    "prompt": "통화 기능에서 버그가 나는데 테스트가 없어",
+    "expected_agents": [
+      "test-writer"
+    ],
+    "expected_skill": "test-skill"
+  },
+  {
+    "id": "N08",
+    "type": "natural",
+    "prompt": "Redis 캐시 적용해서 조회 속도를 올리고 싶어",
+    "expected_agents": [
+      "performance-optimizer"
+    ],
+    "expected_skill": "entity-skill"
+  },
+  {
+    "id": "N09",
+    "type": "natural",
+    "prompt": "gRPC Proto에 새 필드를 추가해야 하는데 어떻게 정의하지",
+    "expected_agents": [
+      "api-designer"
+    ],
+    "expected_skill": "grpc-skill"
+  }
+]
