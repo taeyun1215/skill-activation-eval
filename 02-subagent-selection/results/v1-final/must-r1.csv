@@ -1,0 +1,17 @@
+id,type,prompt,config,delegated,subagent_types,expected_agents,agent_match
+D01,direct,프로필 수정 API 인터페이스를 설계해줘,must,True,api-designer,api-designer,True
+D02,direct,UserService 코드 구조를 분석해줘,must,True,code-analyzer,code-analyzer,True
+D03,direct,팔로우 목록 조회 쿼리를 최적화해줘,must,True,performance-optimizer,db-query-helper,False
+D04,direct,UserService 팔로우 기능 단위 테스트를 작성해줘,must,True,Explore|test-writer,test-writer,True
+D05,direct,통화 매칭 로직의 응답 시간을 개선해줘,must,True,performance-optimizer,performance-optimizer,True
+D06,direct,채팅 모듈 DynamoDB 마이그레이션 계획을 세워줘,must,False,,migration-planner,False
+N01,natural,클라이언트에서 사용자 프로필을 수정하는 API의 입출력을 정의해야 해,must,True,api-designer,api-designer,True
+N02,natural,CallService의 의존성이 복잡한데 정리가 필요해,must,True,code-analyzer,code-analyzer,True
+N03,natural,UserRepository의 findByNickname 쿼리가 너무 느려,must,True,performance-optimizer,db-query-helper,False
+N04,natural,통화 매칭 로직의 엣지 케이스가 걱정돼,must,True,code-analyzer,test-writer,False
+N05,natural,팔로우 목록 조회 시 응답이 3초가 걸려,must,True,performance-optimizer,performance-optimizer,True
+N06,natural,푸시 알림 시스템을 FCM에서 자체 구현으로 전환하려고 해,must,True,code-analyzer,migration-planner,False
+A01,ambiguous,새 API endpoint 만들어줘,must,False,,api-designer|code-analyzer,False
+A02,ambiguous,데이터 모델 설계해줘,must,True,api-designer,db-query-helper|api-designer,True
+A03,ambiguous,notification 모듈에 새 기능 추가해줘,must,True,Explore,code-analyzer|api-designer,False
+A04,ambiguous,채팅 모듈을 DynamoDB로 전환해줘,must,False,,migration-planner|performance-optimizer,False
