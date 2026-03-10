@@ -91,7 +91,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-CONFIGS=("none" "simple" "forced-eval" "llm-eval" "forced-eval-v5" "llm-eval-gemini")
+CONFIGS=("none" "simple" "forced-eval" "llm-eval" "forced-eval-v5" "llm-eval-gemini" "forced-eval-nolist" "forced-eval-v5-nolist" "forced-eval-v6")
 if [ -n "$FILTER_CONFIG" ]; then
   CONFIGS=("$FILTER_CONFIG")
 fi
@@ -295,6 +295,39 @@ SETTINGSEOF
   "hooks": {
     "UserPromptSubmit": [
       {"hooks": [{"type": "command", "command": "bash hooks/llm-eval-gemini.sh"}]}
+    ]
+  }
+}
+SETTINGSEOF
+      ;;
+    forced-eval-nolist)
+      cat > "$temp_dir/.claude/settings.json" << 'SETTINGSEOF'
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {"hooks": [{"type": "command", "command": "bash hooks/forced-eval-nolist.sh"}]}
+    ]
+  }
+}
+SETTINGSEOF
+      ;;
+    forced-eval-v5-nolist)
+      cat > "$temp_dir/.claude/settings.json" << 'SETTINGSEOF'
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {"hooks": [{"type": "command", "command": "bash hooks/forced-eval-v5-nolist.sh"}]}
+    ]
+  }
+}
+SETTINGSEOF
+      ;;
+    forced-eval-v6)
+      cat > "$temp_dir/.claude/settings.json" << 'SETTINGSEOF'
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {"hooks": [{"type": "command", "command": "bash hooks/forced-eval-v6.sh"}]}
     ]
   }
 }
